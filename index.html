@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VM 2026 Predictor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">VM 2026 Predictor</p>
+          <h1>VM 2026 Predictions</h1>
+          <p class="hero-text">
+            Lag en privat prediction-league for fotball-VM 2026, samle inn tips
+            før avspark og følg leaderboardet live gjennom hele turneringen.
+          </p>
+          <div class="hero-points">
+            <div class="hero-point">
+              <strong>1.</strong>
+              <span>Alle sender inn prediction én gang</span>
+            </div>
+            <div class="hero-point">
+              <strong>2.</strong>
+              <span>Du låser leagueen før første kamp</span>
+            </div>
+            <div class="hero-point">
+              <strong>3.</strong>
+              <span>Live leaderboard oppdateres med fasit</span>
+            </div>
+          </div>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#league">Opprett League</a>
+            <a class="button button-secondary" href="#groups">Bygg Prediction</a>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <p class="card-label">Turneringsoversikt</p>
+          <ul class="stat-grid">
+            <li>
+              <strong>72</strong>
+              <span>gruppespillkamper</span>
+            </li>
+            <li>
+              <strong>32</strong>
+              <span>lag i bracket</span>
+            </li>
+            <li>
+              <strong>104</strong>
+              <span>kamper totalt</span>
+            </li>
+            <li>
+              <strong>Live</strong>
+              <span>league og fasit</span>
+            </li>
+          </ul>
+          <div class="hero-card-note">
+            <p class="hero-note">
+              Predictionene fylles inn kamp for kamp og oppdaterer automatisk
+              tabeller, kvalifiserte lag og hele sluttspillet.
+            </p>
+            <div class="hero-card-chips">
+              <span class="fixture-chip">League-koder</span>
+              <span class="fixture-chip">Live fasit</span>
+              <span class="fixture-chip">Poeng underveis</span>
+            </div>
+          </div>
+        </aside>
+      </header>
+
+      <main>
+        <section class="section section-league" id="league">
+          <div class="section-heading">
+            <p class="eyebrow">League</p>
+            <h2>Inviter kompisene dine</h2>
+            <p>
+              Opprett en league, del koden eller lenken, og la alle sende inn
+              sitt eget prediction-board. Når du har fasit, kan leaderboardet
+              oppdateres for alle.
+            </p>
+          </div>
+
+          <div class="league-intro">
+            <div class="league-intro-card">
+              <span class="league-intro-number">01</span>
+              <div>
+                <strong>Opprett eller join</strong>
+                <p>Sett navn, lag en league eller gå inn i en eksisterende.</p>
+              </div>
+            </div>
+            <div class="league-intro-card">
+              <span class="league-intro-number">02</span>
+              <div>
+                <strong>Send inn prediction</strong>
+                <p>Alle fyller ut sitt board og sender inn før du låser.</p>
+              </div>
+            </div>
+            <div class="league-intro-card">
+              <span class="league-intro-number">03</span>
+              <div>
+                <strong>Oppdater live fasit</strong>
+                <p>Du legger inn ekte resultater og leaderboardet lever.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="league-layout">
+            <article class="summary-card">
+              <h3>Spiller</h3>
+              <div class="league-form">
+                <label for="player-name">Navnet ditt</label>
+                <input id="player-name" type="text" placeholder="For eksempel William" />
+              </div>
+              <p class="helper-text">
+                Dette navnet brukes når du sender inn predictionen din.
+              </p>
+            </article>
+
+            <article class="summary-card">
+              <h3>League</h3>
+              <div class="league-form">
+                <label for="league-name">Nytt league-navn</label>
+                <div class="inline-form">
+                  <input id="league-name" type="text" placeholder="VM 2026-gjengen" />
+                  <button class="button button-primary" id="create-league-button">
+                    Opprett league
+                  </button>
+                </div>
+
+                <label for="league-code">League-kode</label>
+                <div class="inline-form">
+                  <input id="league-code" type="text" placeholder="Skriv inn kode" />
+                  <button class="button button-secondary" id="join-league-button">
+                    Join league
+                  </button>
+                </div>
+              </div>
+              <p id="league-feedback" class="helper-text">
+                Ingen league er valgt ennå.
+              </p>
+            </article>
+
+            <article class="summary-card">
+              <h3>Aktiv league</h3>
+              <div id="league-summary"></div>
+              <div class="toolbar compact-toolbar">
+                <button class="button button-primary" id="submit-entry-button">
+                  Send inn min prediction
+                </button>
+                <button class="button button-secondary" id="load-entry-button">
+                  Last inn min prediction
+                </button>
+              </div>
+            </article>
+
+            <article class="summary-card admin-card">
+              <div class="admin-card-header">
+                <div>
+                  <h3>Admin / Live Fasit</h3>
+                  <p class="summary-copy">
+                    Kun for deg som skal låse predictions og legge inn ekte resultater underveis i VM.
+                  </p>
+                </div>
+                <span class="admin-badge">Admin</span>
+              </div>
+
+              <div class="league-form">
+                <label for="admin-code">Admin-kode</label>
+                <input id="admin-code" type="text" placeholder="Skriv inn admin-koden din" />
+              </div>
+
+              <div id="admin-locked-view"></div>
+              <div id="admin-summary"></div>
+
+              <div class="toolbar compact-toolbar" id="admin-actions">
+                <button class="button button-secondary" id="lock-league-button">
+                  Lås predictions
+                </button>
+                <button class="button button-secondary" id="save-actual-results-button">
+                  Oppdater live fasit
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <article class="summary-card leaderboard-card">
+            <h3>Leaderboard</h3>
+            <p class="summary-copy leaderboard-note">
+              Poengene oppdateres fortløpende kamp for kamp. Fasepoeng deles først ut når den aktuelle fasen er ferdigspilt.
+            </p>
+            <div id="leaderboard"></div>
+          </article>
+        </section>
+
+        <section class="section">
+          <div class="section-heading">
+            <p class="eyebrow">Format</p>
+            <h2>Hvordan denne versjonen fungerer</h2>
+            <p>
+              Fyll inn scorene i gruppespillet, så regner appen ut tabeller,
+              rangerer tredjeplassene og gjør 32 lag tilgjengelig for
+              utslagsrundene. I åttedelsrunden velger du lagene fra de kvalifiserte,
+              og derfra mates vinnere videre automatisk.
+            </p>
+          </div>
+
+          <div class="overview-grid" id="overview-cards"></div>
+        </section>
+
+        <section id="groups" class="section">
+          <div class="section-heading">
+            <p class="eyebrow">Gruppespill</p>
+            <h2>Legg inn alle resultatene dine</h2>
+            <p>
+              Hver gruppe har seks kamper. Tabellen regnes ut automatisk med
+              poeng, målforskjell og scorede mål.
+            </p>
+          </div>
+
+          <div class="toolbar">
+            <button class="button button-secondary" id="reset-button">
+              Nullstill alt
+            </button>
+            <p class="toolbar-text">
+              Predictions lagres i nettleseren mens du jobber.
+            </p>
+          </div>
+
+          <div class="qualification-summary">
+            <div class="summary-card">
+              <h3>Direkte kvalifiserte</h3>
+              <p class="summary-copy">
+                Gruppevinnere, nummer to og de åtte beste treerne oppdateres
+                automatisk mens du fyller inn kampene.
+              </p>
+              <ul id="qualified-list"></ul>
+            </div>
+            <div class="summary-card">
+              <h3>Tredjeplasser</h3>
+              <p class="summary-copy">
+                Rangert etter poeng, målforskjell og scorede mål.
+              </p>
+              <ul id="third-place-list"></ul>
+            </div>
+          </div>
+
+          <div class="group-grid" id="group-grid"></div>
+        </section>
+
+        <section id="knockout" class="section">
+          <div class="section-heading">
+            <p class="eyebrow">Sluttspill</p>
+            <h2>Spill turneringen helt ut</h2>
+            <p>
+              Åttedelsfinalene kan fylles med de 32 lagene som går videre fra
+              gruppespillet. Fra og med neste runde flyttes vinnere og tapere
+              videre automatisk, inkludert bronsefinale og finale.
+            </p>
+          </div>
+
+          <div class="summary-strip" id="podium-strip"></div>
+          <div class="rounds-layout" id="knockout-board"></div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading">
+            <p class="eyebrow">Poeng</p>
+            <h2>Poeng fordeling</h2>
+            <p>
+              Dette er måten poengene vil bli fordelt.
+            </p>
+          </div>
+
+          <div class="score-layout">
+            <article class="score-card" id="score-rules"></article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>VM 2026 Predictions er laget av William Thursfield som et hobbyprosjekt.</p>
+        <p>
+          Har du innspill eller oppdager noe rart, send gjerne feedback direkte til
+          <a href="https://www.linkedin.com/in/william-s-thursfield-" target="_blank" rel="noreferrer">William på LinkedIn</a>.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
