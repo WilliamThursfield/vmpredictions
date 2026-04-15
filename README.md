@@ -1,26 +1,41 @@
 # VM 2026 Predictions
 
-En webapp for private VM-leagues, inspirert av Excel-arket `WCup_2026_4.2.5_en.xlsx`.
+En webapp for private VM-leagues der venner kan sende inn sine predictions før turneringen starter, og følge et live leaderboard mens kampene spilles.
 
-## Hva som er bygget
+## Live
 
-- enkel multiplayer-MVP med leagues, deltakerinnsending og leaderboard
+- Nettside: [vmpredictions.no](https://vmpredictions.no)
+
+## Hva prosjektet gjør
+
+- oppretter private leagues med egen league-kode
+- lar flere deltakere sende inn sine predictions
+- låser predictions når alle er ferdige
+- lar admin legge inn live fasit kamp for kamp
+- oppdaterer leaderboard fortløpende
+- deler kun ut fasepoeng når en fase faktisk er ferdigspilt
+
+## Funksjoner
+
 - gruppespill med seks kamper per gruppe
-- automatisk tabellberegning basert på resultatene du skriver inn
+- automatisk tabellberegning basert på score du skriver inn
 - rangering av tredjeplasser og oversikt over hvem som går videre
 - offisiell `Round of 32`-mapping for kombinasjoner av beste tredjeplasser
 - sluttspill fra `Round of 32` til finale
 - automatisk videreføring av vinnere og tapere i bracketen
 - kampdatoer, kampnumre og arenaer hentet fra workbooken
-- live fasit, låste predictions og live leaderboard for league-spill
 - admin-kode for å låse predictions og oppdatere fasit underveis
-- lokal lagring i nettleseren med `localStorage`
 
-## Live
+## Tech stack
 
-- Domene: `https://vmpredictions.no`
+- HTML
+- CSS
+- Vanilla JavaScript
+- Node.js
+- Vercel
+- Postgres
 
-## Kjøring
+## Lokal kjøring
 
 Installer avhengigheter:
 
@@ -28,36 +43,26 @@ Installer avhengigheter:
 npm install
 ```
 
-Start app-serveren lokalt:
+Start appen lokalt:
 
 ```bash
 npm start
 ```
 
-Åpne deretter `http://localhost:8000`.
+Åpne deretter [http://localhost:8000](http://localhost:8000).
 
-Lokalt gjør serveren to ting:
+Lokalt blir data lagret i [data/leagues.json](./data/leagues.json).
 
-- serverer frontend-filen
-- lagrer leagues, entries og fasit i `data/leagues.json`
+## Deploy
 
-## Vercel-klar arkitektur
+Prosjektet er satt opp slik at:
 
-Prosjektet er nå lagt opp slik at:
-
-- lokal utvikling kan bruke `data/leagues.json`
-- produksjon kan bruke Postgres via `DATABASE_URL`
+- lokal utvikling bruker `data/leagues.json`
+- produksjon bruker Postgres via `DATABASE_URL`
 - API-et kan kjøres både fra `server.mjs` lokalt og fra `api/handler.js` på Vercel
-
-### Miljøvariabler for deploy
-
-- `DATABASE_URL`: Postgres-tilkobling for produksjon
 
 Når `DATABASE_URL` finnes, blir tabellen `leagues` opprettet automatisk ved første kall.
 
-## Neste steg for ekte publisering
+## Bakgrunn
 
-- opprette et Postgres-prosjekt, for eksempel via Vercel Marketplace
-- deploye repoet til Vercel
-- koble `vmpredictions.no` til Vercel-prosjektet via DNS i Domeneshop
-- senere: legge til innlogging eller e-postbasert admin hvis du vil bort fra admin-kode
+Prosjektet er inspirert av Excel-arket `WCup_2026_4.2.5_en.xlsx`, men bygget som en webapp for enklere deling, live scoring og league-spill mellom venner.
